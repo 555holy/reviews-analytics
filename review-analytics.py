@@ -1,7 +1,7 @@
 import random
 r = random.randint(0,10000)
 data = []
-count =0
+count = 0
 with open('reviews.txt', 'r') as f:
 	for line in f:
 		count += 1
@@ -19,4 +19,25 @@ print('留言平均長度為', sum_len/len(data), '個字')
 flit = [d for d in data if 'good' in d] #list comprehension
 
 print('有good的留言有', len(flit), '個')
-print(flit[r])
+
+wc = {}
+for d in data:
+	words = d.split()
+	for word in words:
+		if word in wc:
+			wc[word] += 1
+		else:
+			wc[word] = 1
+for word in wc:
+	if wc[word] > 100000:
+		print(word, wc[word])
+
+while True:
+	word = input('請問你要查甚麼字？')
+	if word == 'q':
+		break
+	if word in wc:
+		print(word,'出現', wc[word],'次')
+	else:
+		print('沒有這個字喔')
+print('感謝使用！')
